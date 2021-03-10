@@ -1,21 +1,32 @@
 package main
 
 const spanish = "Spanish"
+const french = "French"
 const englishHelloPrefix = "Hello, "
 const spanishHelloPrefix = "Hola, "
+const frenchHelloPrefix = "Bonjour, "
+const englishWorldPostfix = "World"
+const spanishWorldPostfix = "Mundo"
+const frenchWorldPostfix = "Monde"
 
 func Hello(name, language string) string {
-	if language == spanish {
-		if name == "" {
-			name = "Mundo"
-		}
-		return spanishHelloPrefix + name
-	} else {
-		if name == "" {
-			name = "World"
-		}
-		return englishHelloPrefix + name
+	prefix := englishHelloPrefix
+	postfix := englishWorldPostfix
+
+	switch language {
+	case spanish:
+		prefix = spanishHelloPrefix
+		postfix = spanishWorldPostfix
+	case french:
+		prefix = frenchHelloPrefix
+		postfix = spanishWorldPostfix
 	}
+
+	if name != "" {
+		postfix = name
+	}
+
+	return prefix + postfix
 }
 
 func main() {
