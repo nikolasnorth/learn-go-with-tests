@@ -19,7 +19,7 @@ func Hello(name, language string) string {
 		postfix = spanishWorldPostfix
 	case french:
 		prefix = frenchHelloPrefix
-		postfix = spanishWorldPostfix
+		postfix = frenchWorldPostfix
 	}
 
 	if name != "" {
