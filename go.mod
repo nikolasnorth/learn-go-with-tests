@@ -1,3 +1,3 @@
-module learn-go-with-tests
+module github.com/NikolasNorth/learn-go-with-tests
 
 go 1.15
