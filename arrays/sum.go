@@ -17,3 +17,16 @@ func SumAll(numbersToSum ...[]int) (sums []int) {
 	}
 	return
 }
+
+// Returns an integer array containing the summed values for the tail of every slice
+func SumAllTails(numbersToSum ...[]int) (sums []int) {
+	sums = make([]int, len(numbersToSum))
+	for i, v := range numbersToSum {
+		if len(v) == 0 {
+			sums[i] = 0
+		} else {
+			sums[i] = Sum(v[1:])
+		}
+	}
+	return
+}
