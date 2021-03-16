@@ -1,11 +1,16 @@
 package maps
 
-import "errors"
-
 type Dictionary map[string]string
+type DictionaryErr string
 
-var ErrKeyNotFound = errors.New("key not found")
-var ErrKeyExists = errors.New("key already exists")
+const (
+	ErrKeyExists   = DictionaryErr("key already exists")
+	ErrKeyNotFound = DictionaryErr("key not found")
+)
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 func (d Dictionary) Search(key string) (string, error) {
 	val, ok := d[key]
