@@ -17,14 +17,26 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dict := Dictionary{}
-	key, val := "test", "this is a test"
-	dict.Add(key, val)
-	got, err := dict.Search("test")
-	if err != nil {
-		t.Fatalf("key %q was not added", key)
-	}
-	assertStrings(t, got, "this is a test")
+	t.Run("new word", func(t *testing.T) {
+		dict := Dictionary{}
+		key, val := "test", "this is a test"
+		err := dict.Add(key, val)
+		if err != nil {
+
+		}
+		got, err := dict.Search("test")
+		if err != nil {
+			t.Fatalf("key %q was not added", key)
+		}
+		assertStrings(t, got, "this is a test")
+	})
+
+	t.Run("existing word", func(t *testing.T) {
+		key, val := "test", "this is a test"
+		dict := Dictionary{key: val}
+		err := dict.Add(key, val)
+		assertError(t, err, ErrKeyExists)
+	})
 }
 
 func assertStrings(t *testing.T, got, want string) {
