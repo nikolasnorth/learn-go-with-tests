@@ -23,13 +23,23 @@ func (d Dictionary) Search(key string) (string, error) {
 func (d Dictionary) Add(key, val string) error {
 	_, err := d.Search(key)
 	switch err {
-	case ErrKeyNotFound:
-		d[key] = val
 	case nil:
 		return ErrKeyExists
+	case ErrKeyNotFound:
+		d[key] = val
 	default:
 		return err
 	}
+
+	return nil
+}
+
+func (d Dictionary) Update(key, val string) error {
+	_, err := d.Search(key)
+	if err != nil {
+		return err
+	}
+	d[key] = val
 
 	return nil
 }

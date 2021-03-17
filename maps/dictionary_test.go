@@ -20,10 +20,12 @@ func TestAdd(t *testing.T) {
 	t.Run("new word", func(t *testing.T) {
 		dict := Dictionary{}
 		key, val := "test", "this is a test"
+
 		err := dict.Add(key, val)
 		if err != nil {
-
+			t.Fatalf("got unexpected error %q", err)
 		}
+
 		got, err := dict.Search("test")
 		if err != nil {
 			t.Fatalf("key %q was not added", key)
@@ -36,6 +38,30 @@ func TestAdd(t *testing.T) {
 		dict := Dictionary{key: val}
 		err := dict.Add(key, val)
 		assertError(t, err, ErrKeyExists)
+	})
+}
+
+func TestUpdate(t *testing.T) {
+	key, val := "test", "this is a test"
+	dict := Dictionary{key: val}
+
+	t.Run("key exists", func(t *testing.T) {
+		newVal := "updated message"
+		err := dict.Update(key, newVal)
+		if err != nil {
+			t.Fatalf("got unexpected error %q", err)
+		}
+
+		got, err := dict.Search(key)
+		if err != nil {
+			t.Fatalf("key %q was not updated", key)
+		}
+		assertStrings(t, got, newVal)
+	})
+
+	t.Run("key does not exist", func(t *testing.T) {
+		err := dict.Update("missingKey", "this key is missing")
+		assertError(t, err, ErrKeyNotFound)
 	})
 }
 
