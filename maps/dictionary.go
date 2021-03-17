@@ -17,6 +17,7 @@ func (d Dictionary) Search(key string) (string, error) {
 	if !ok {
 		return "", ErrKeyNotFound
 	}
+
 	return val, nil
 }
 
@@ -39,7 +40,11 @@ func (d Dictionary) Update(key, val string) error {
 	if err != nil {
 		return err
 	}
-	d[key] = val
 
+	d[key] = val
 	return nil
+}
+
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
 }

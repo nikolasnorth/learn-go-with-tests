@@ -65,6 +65,14 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
+func TestDelete(t *testing.T) {
+	key, val := "test", "this is a test"
+	dict := Dictionary{key: val}
+	dict.Delete(key)
+	_, err := dict.Search(key)
+	assertError(t, err, ErrKeyNotFound)
+}
+
 func assertStrings(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
